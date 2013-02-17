@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html><head>
+<script>
+var act=1;
+//var cat_left;
+function scroll_cat(dir)
+{
+	
+	if(dir=='left')act ++;
+	else act--;
+	cat_update();
+}
+
+function _onload()
+{
+	
+	window.onresize = function (e)
+	{
+		cat_update();
+	}	
+
+	
+	var tab=document.getElementById("cat_items").childNodes;	
+	for(var i=0;i<tab.length;)  //strip empty spaces
+	{
+		if(tab[i].nodeName!="TD")
+		{
+			tab[0].parentNode.removeChild(tab[i]);			
+		}
+		else		
+		i++;
+	}	
+	cat_update();
+}
+	
+	function cat_update()
+	{
+		if(document.getElementById("navigation").offsetWidth>=
+		document.getElementById("cat_items").offsetWidth) 
+		{
+			arrow("hide");
+			act=0;
+		}
+		else arrow("unhide");
+		var tab=document.getElementById("cat_items").childNodes;
+		if(act<=0) 
+		{
+			act=0; 
+			arrow("disable","right"); 	
+		}
+		else  arrow("enable","right"); 
+		if(act>tab.length-1) act=tab.length-1;
+		var active=tab.length-1-act;
+		
+		var space=document.getElementById("scroller").clientWidth;
+		var space_taken=0;
+		var tab=document.getElementById("cat_items").childNodes;
+		if(tab[active].offsetWidth>space)
+		{
+			off=tab[active].offsetLeft; //one cant fit
+			tab[active-i].style.opacity="1";
+		}
+		else
+		{	
+			for(var i=0;i<=active;i++)
+			{
+				if(space_taken+tab[active-i].offsetWidth<=space)
+				space_taken+=tab[active-i].offsetWidth;
+				else break;			
+				tab[active-i].style.opacity="";
+			}
+			var left=active-i+1;		
+			off=tab[left].offsetLeft;
+			//cat_left=act+i-1;
+			
+			
+			for(var i=active+1;i<tab.length;i++)
+			{
+				tab[i].style.opacity="0";			
+			}
+			if(!left) arrow("disable","left");			
+			else arrow("enable","left"); 
+		}
+	document.getElementById("cat").style.left=-off+"px";
+	
+	
+	
+	}
+	function arrow(action,direction)
+	{
+		var arrow=document.getElementsByClassName("cat_arrow "+direction)[0];
+		if(action=="disable")
+		 {
+			arrow.style.backgroundColor="black";
+			arrow.onclick="";
+			arrow.style.cursor="auto";			
+		 }
+		else if(action=="enable")
+		{
+			arrow.style.backgroundColor="";
+			arrow.onclick=function() {scroll_cat(direction)};
+			arrow.style.cursor="";			
+		}
+		else if(action=="hide")
+		{
+			for(var i=0;i<2;i++)
+			{
+				document.getElementsByClassName("cat_arrow")[i].style.display="none"				
+			}
+			document.getElementById("scroller").style.left="0px";
+			document.getElementById("scroller").style.right="0px";
+		}
+		else if(action=="unhide")
+		{
+			for(var i=0;i<2;i++)
+			{
+				document.getElementsByClassName("cat_arrow")[i].style.display=""				
+			}
+			document.getElementById("scroller").style.left="";
+			document.getElementById("scroller").style.right="";
+			
+		}
+		
+	}
+	
+		
+
+</script>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<link href="style/style.css" rel="stylesheet" type="text/css">
+</head>
+
+
+
+
+<body onload="_onload()">
+<div id="session_box">
+<div id="top">
+<div class="form">
+<label for="user">Username</label>
+<input type="text" name="user" id="user">
+</div>
+<div class="form"><label for="pass">Password</label>
+<input type="password" name="pass" id="pass">
+</div>
+</div>
+<div id="bottom">LOG IN</div>
+</div><header>
+<div id="logo"><img src="art/logo.svg"></div>
+<h1 id="title">
+Contact
+</h1><div style="
+    float: left;
+"><div style="word-spacing:6px;white-space:nowrap;position: absolute;bottom: 0px;">
+	<a class="topnav" href="/sitemap/default.asp#references" target="_top">REFERENCES</a> |
+	<a class="topnav" href="/sitemap/default.asp#examples" target="_top">EXAMPLES</a> |
+	<a class="topnav" href="/forum/default.asp" target="_top">FORUM</a> |
+	<a class="topnav" href="/about/default.asp" target="_top">ABOUT</a>	
+</div></div>
+
+
+
+
+
+<div id="header_b">
+</div>
+
+
+  
+
+
+</header>
+<nav id="navigation">
+	<div class="cat_arrow left" onclick="scroll_cat('left')" style=""></div>
+<div id="scroller" style="">
+<div id="cat" style="left: -783px; ">
+
+<table width="100%" style="border-spacing:0px;" border="0">
+  <tbody><tr id="cat_items"><td>TEST1</td><td id="special">TEST2</td><td>TEST3</td><td>TEST4</td><td>TEST5</td><td>TEST6</td><td>TEST7</td><td>TEST8</td><td>TEST9</td><td>TEST10</td><td style="">TEST11</td><td style="">TEST12</td><td style="">TEST13</td><td style="">TEST14</td><td style="">TEST15</td><td style="">TEST16</td><td style="">TEST17</td><td style="">TEST18</td><td style="">TEST19</td><td style="opacity: 0; ">TEST20</td></tr>
+</tbody></table>
+
+
+
+</div>
+</div>
+
+<div class="cat_arrow right" onclick="scroll_cat('right')" style=""></div>
+<div style="clear:both;"></div>
+  </nav><div id="cout">
+ <p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+<p>&nbsp;</p><p>content </p>
+<p>content</p>
+
+
+</div>
+
+
+
+</body></html>
